@@ -1,4 +1,5 @@
 import boto3
+import sys
 
 def get_unattached_volumes(region):
     ec2 = boto3.client('ec2', region_name=region)
@@ -12,12 +13,24 @@ def get_unattached_volumes(region):
 
     return unattached_volumes
 
+def calculate_storage_cost(volumes, storage_cost_per_gb):
+    # WIP - Get storage_cost to aws-princing/ebs-pricing.py
+    total_cost = 0
+    for volume in volumes:
+        size_gb = volume['Size']
+        cost = size_gb * storage_cost_per_gb
+        total_cost += cost
+
+    return total_cost
+
 def main():
-    import sys
     if len(sys.argv) != 2:
         sys.exit(1)
 
     region = sys.argv[1]
+
+    # WIP - Get storage_cost to aws-princing/ebs-pricing.py
+    #storage_cost_per_gb = float(sys.argv[2])
 
     unattached_volumes = get_unattached_volumes(region)
 
@@ -28,11 +41,11 @@ def main():
             print("   Size (GB):", volume['Size'])
             tags = volume.get('Tags', [])
             if tags:
-                print(" TAGs:")
+                print("   TAGs:")
                 for tag in tags:
                     print("     - {}: {}".format(tag['Key'], tag['Value']))
             else:
-                print ("     No tags associated with this volume")
+                print ("   No tags associated with this volume")
     else:
         print("No unattached EBS volumes found in the {} region.".format(region))
 
