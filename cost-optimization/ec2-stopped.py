@@ -30,7 +30,7 @@ def main():
                 for tag in tags:
                     print("     - {}: {}".format(tag['Key'], tag['Value']))
             else:
-                print ("   No tags associated with this volume")
+                print ("   No tags associated with this ec2")
     else:
         print("Not found Stopped instances {}.".format(region))
 
