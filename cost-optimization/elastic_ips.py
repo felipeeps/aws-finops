@@ -1,3 +1,8 @@
+"""
+Module: elastic_ips.py
+
+This module contains functions for discovery ELPs not used.
+"""
 import boto3
 
 def get_unused_elastic_ips(region):

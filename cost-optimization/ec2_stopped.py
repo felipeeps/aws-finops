@@ -1,3 +1,8 @@
+"""
+Module: ec2_stopped.py
+
+This module contains functions for discovery ec2 with status Stopped.
+"""
 import boto3
 
 def get_stopped_instances(region):

@@ -1,3 +1,8 @@
+"""
+Module: ebs-unused.py
+
+This module contains functions for discovery ebs not usued.
+"""
 import boto3
 import sys
 

@@ -1,3 +1,8 @@
+"""
+Module: ebs-unused.py
+
+This module contains functions for discovery ebs using GP2.
+"""
 import boto3
 
 def list_gp2_volumes(region):

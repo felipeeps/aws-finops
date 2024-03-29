@@ -1,3 +1,8 @@
+"""
+Module: old_snapshots_ec2.py
+
+This module contains a function that inserts tags into security groups.
+"""
 import boto3
 
 def tag_security_group(ids_security_groups):

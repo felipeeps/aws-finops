@@ -1,3 +1,8 @@
+"""
+Module: old_snapshots_ec2.py
+
+This module contains functions for discovery old snapshots on EC2.
+"""
 import boto3
 import sys
 from datetime import datetime, timedelta, timezone
