@@ -8,7 +8,7 @@ def get_unattached_volumes(region):
 
     for volume in response['Volumes']:
         if len(volume['Attachments']) == 0:
-            unattached_volumes.append(volume['VolumeId'])
+            unattached_volumes.append(volume)
 
     return unattached_volumes
 
@@ -23,8 +23,16 @@ def main():
 
     if unattached_volumes:
         print("Unattached EBS volumes in the {} region: ".format(region))
-        for volume_id in unattached_volumes:
-            print(" -", volume_id)
+        for volume in unattached_volumes:
+            print(" - Volume ID:", volume['VolumeId'])
+            print("   Size (GB):", volume['Size'])
+            tags = volume.get('Tags', [])
+            if tags:
+                print(" TAGs:")
+                for tag in tags:
+                    print("     - {}: {}".format(tag['Key'], tag['Value']))
+            else:
+                print ("     No tags associated with this volume")
     else:
         print("No unattached EBS volumes found in the {} region.".format(region))
 
