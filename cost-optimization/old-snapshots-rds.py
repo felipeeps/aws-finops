@@ -1,14 +1,14 @@
 import boto3
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def get_old_rds_snapshots(region):
     rds = boto3.client('rds', region_name=region)
     # Get old date | Example using 1 year
-    one_year_ago = datetime.now() - timedelta(days=365)
+    old_date = datetime.now(timezone.utc) - timedelta(days=365)
     response = rds.describe_db_snapshots()
 
-    old_snapshots = [snapshot for snapshot in response['DBSnapshots'] if snapshot['SnapshotCreateTime'] < one_year_ago]
+    old_snapshots = [snapshot for snapshot in response['DBSnapshots'] if snapshot['SnapshotCreateTime'] < old_date]
 
     return old_snapshots
 

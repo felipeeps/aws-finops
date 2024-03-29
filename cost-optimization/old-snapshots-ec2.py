@@ -1,11 +1,11 @@
 import boto3
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def get_old_snapshots(region):
     ec2 = boto3.client('ec2', region_name=region)
     # Get old date | Example using 1 year
-    old_date = datetime.now() - timedelta(days=365)
+    old_date = datetime.now(timezone.utc) - timedelta(days=365)
 
     response = ec2.describe_snapshots(OwnerIds=['self'])
     old_snapshots = [snapshot for snapshot in response['Snapshots'] if snapshot['StartTime'] < old_date]
